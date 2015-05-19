@@ -194,10 +194,8 @@
 //			self.renderSkills(skills, self.component);
 
             // stub the methods that will be invoked
-            var enqueueActionStub = sinon.stub($A, 'enqueueAction',
-                                               function(action) {alert('Action = ' + JSON.stringify(action));});
+            var enqueueActionStub = sinon.stub($A, 'enqueueAction');
             
-            alert('Enqueue action = ' + $A.enqueueAction);
 			$('#searchterm').val('Unit Test');
 			$('#searchterm').val('Unit Test');
 			$('[id^="skillcb_Skill1"]').prop('checked', true);           
