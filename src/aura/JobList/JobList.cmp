@@ -1,0 +1,38 @@
+<aura:component >
+    <ltng:require scripts="/resource/JQuery_2_1_3,
+                           /resource/Bootstrap_3_3_2/bootstrap-3.3.2-dist/js/bootstrap.min.js,
+                           /resource/alertify_0_3_11/alertify.js-0.3.11/lib/alertify.min.js"
+			    styles="/resource/Bootstrap_3_3_2/bootstrap-3.3.2-dist/css/bootstrap.min.css,
+						/resource/Bootstrap_3_3_2/bootstrap-3.3.2-dist/css/bootstrap-theme.min.css,
+			            /resource/alertify_0_3_11/alertify.js-0.3.11/themes/alertify.core.css,
+                        /resource/alertify_0_3_11/alertify.js-0.3.11/themes/alertify.bootstrap.css" />
+    
+	<aura:handler event="c:JobListEvent" action="{!c.receiveJobs}"/>
+	<aura:handler event="c:RunTestsEvent" action="{!c.runTests}"/>
+    <aura:attribute name="jobWrappers" type="JobWrapper[]" />
+
+    		<aura:iteration items="{!v.jobWrappers}" var="wrap">
+			<div class="row-fluid">
+				<div class="col-xs-12 fullwidth">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">{!wrap.job.Name}</h3>
+						</div>
+						<div class="panel-body">
+							<div class="top-buffer table-responsive"><ui:outputRichText aura:id="outputRT" value="{!wrap.job.Description__c}"/></div>
+						</div>
+						<div class="panel-footer">
+							<aura:iteration items="{!wrap.skills}" var="skill">
+								<span class="label label-default" style="margin-right:4px;">{!skill.Name}</span>
+                            </aura:iteration>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="fluid-row">
+				<div class="col-xs-12 top-buffer">
+				</div>
+			</div>
+		</aura:iteration>
+
+</aura:component>

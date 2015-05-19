@@ -1,0 +1,167 @@
+<apex:page sidebar="false" controller="JobsController" showheader="false" standardstylesheets="false" applyHtmlTag="false">
+ <html>
+   <head>
+    <title>Jobs Unit Tests</title>
+	<apex:stylesheet value="{!URLFOR($Resource.Bootstrap_3_3_2, 'bootstrap-3.3.2-dist/css/bootstrap.min.css')}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.Bootstrap_3_3_2, 'bootstrap-3.3.2-dist/css/bootstrap-theme.min.css')}"/>
+      
+	<apex:includescript value="{!$Resource.JQuery_2_1_3}" />
+      
+	<apex:includeScript value="{!URLFOR($Resource.Bootstrap_3_3_2, 'bootstrap-3.3.2-dist/js/bootstrap.min.js')}"/>
+	<apex:includescript value="{!$Resource.jqBlock}" />
+	
+  	<apex:includeScript value="{!$Resource.qunitJS_1_18_0}" />
+  	<apex:stylesheet value="{!$Resource.qunitCSS_1_18_0}" />
+  	<apex:includeScript value="{!$Resource.blanket_1_1_5}" />
+  	<apex:includeScript value="{!$Resource.sinon_1_14_1}" />
+  	
+	<script src="{!$Resource.JobsJS}" data-cover="true"></script>
+   </head>
+
+   <body>
+    <script>
+   
+   		//
+		// Unit tests for the progress spinner
+		//
+		QUnit.module('PROGRESS', {
+			// stub the JQuery BlockUI functions and clear the jobCtrl data before each test
+			beforeEach: function(assert) {
+							this.blockUIStub = sinon.stub($, "blockUI");
+							this.unblockUIStub = sinon.stub($, "unblockUI");
+							jobCtrl.reset();
+						},
+	        // restore the default JQuery BlockUI function
+			afterEach : function(assert) {
+							this.blockUIStub.restore();
+							this.unblockUIStub.restore();
+						}
+			});
+
+		// test the show progress function
+		QUnit.test( "Show Progress", function( assert ) {
+ 
+			jobCtrl.showProgress();
+	 	
+	 		// the BlockUI stub should be called exactly once
+			assert.equal( this.blockUIStub.callCount, 1, "BlockUI called once");
+			
+			// the progress count should be set to 1
+			assert.equal( jobCtrl.progressCount, 1, "Progress count is one");
+        
+		});
+      
+		QUnit.test( "Show Progress Multiple", function( assert ) {
+			// call the show progress method twice
+			jobCtrl.showProgress();
+			jobCtrl.showProgress();
+	 	
+			// the BlockUI stub should be called once
+			assert.equal( this.blockUIStub.callCount, 1, "BlockUI called once");
+        
+			// the progress count should be 2
+			assert.equal( jobCtrl.progressCount, 2, "Progress count is one");
+		});
+      
+		QUnit.test( "Hide Progress", function( assert ) {
+			// prime the progress count at 1
+			jobCtrl.progressCount=1;
+			jobCtrl.hideProgress();
+			
+	 		// the unblockUI stub should be called exactly once
+			assert.equal( this.unblockUIStub.callCount, 1, "unblockUI called once");
+			
+			// the progress count should be set to 0
+			assert.equal( jobCtrl.progressCount, 0, "Progress count is zero");
+		});
+
+		QUnit.test( "Hide Progress Multiple", function( assert ) {
+			// prime the progress count at 2
+			jobCtrl.progressCount=2;
+			jobCtrl.hideProgress();
+			
+	 		// the unblockUI stub should not be called
+			assert.equal( this.unblockUIStub.callCount, 0, "unblockUI never called");
+			
+			// the progress count should be set to 1
+			assert.equal( jobCtrl.progressCount, 1, "Progress count is zero");
+		});
+
+   		//
+		// Unit tests for the search code
+		//
+		QUnit.module('SEARCH', {
+			// stub the JQuery BlockUI functions and clear the jobCtrl data before each test
+			beforeEach: function(assert) {
+							this.searchStub = sinon.stub(JobsController, "SearchJobs");
+							this.blockUIStub = sinon.stub($, "blockUI");
+							this.unblockUIStub = sinon.stub($, "unblockUI");
+						},
+	        // restore the default JQuery BlockUI function
+			afterEach : function(assert) {
+							this.searchStub.restore();
+							this.blockUIStub.restore();
+							this.unblockUIStub.restore();
+						}
+		});
+
+		QUnit.test( "Search", function( assert ) {
+			$('#qunit-fixture').html('<input id="searchterm" value="BrightGen" /> ' +
+			                         '<input value="JavaScript" id="skillcb_1" type="checkbox" checked="checked"/>');
+
+			jobCtrl.doSearch();
+			assert.equal(this.searchStub.callCount, 1, "Search called once");
+			assert.equal(this.searchStub.calledWith('BrightGen', ["JavaScript"]), true, "Search expected arguments");
+		});
+
+		QUnit.test( "Render Jobs", function( assert ) {
+			var fakeJobs = 
+				[{
+		        	job : {
+		        		Name : 'Test',
+			    		Description__c : 'Desc'
+			        	},
+			    	skills : [
+		    	      	{ Name : "Java" }
+					   ]
+				}];
+
+			$('#qunit-fixture').html('<div id="jobpanel" />');
+			jobCtrl.renderJobs(fakeJobs);
+			assert.equal($("#jobpanel div.panel").length, 1, "1 job rendered");
+								
+		});
+		
+		QUnit.module("INITIALISE");
+		
+		QUnit.test( "Search Button Handler", function( assert ) {
+			this.searchStub = sinon.stub(jobCtrl, "doSearch");
+			this.clearStub = sinon.stub(jobCtrl, "clearSearch");
+			this.skillsStub = sinon.stub(jobCtrl, "getSkills");
+			this.latestStub = sinon.stub(jobCtrl, "getLatestJobs");
+			
+			$('#qunit-fixture').html('<button id="searchbtn" /> ' +
+			                         '<button id="resetbtn" /> ');
+
+			jobCtrl.initialise();
+			assert.equal(this.skillsStub.callCount, 1, "getSkills called once");
+			
+			$('#searchbtn').click();
+			assert.equal(this.searchStub.callCount, 1, "search called once");
+			
+			$('#resetbtn').click();
+			assert.equal(this.clearStub.callCount, 1, "clear called once");
+			
+			this.searchStub.restore();
+			this.clearStub.restore();
+			this.skillsStub.restore();
+			this.latestStub.restore();
+		});
+	</script>      
+      
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+      
+   </body>    
+ </html>
+</apex:page>

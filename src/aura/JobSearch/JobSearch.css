@@ -1,0 +1,21 @@
+.THIS.top-buffer { 
+	margin-top:20px; 
+}
+.THIS.fullwidth {
+	margin-left:0;
+	margin-right:0;
+	padding-left:0;
+	padding-right:0;
+}
+.THIS.hidden-toggle {
+	display:none;
+}
+.THIS.sm-container {
+	margin-top: 0.8em;
+	float:left;
+}
+.THIS.sm-icon {
+	width:1.75em;
+	height:1.75em;
+	margin-left: 0.5em;
+}

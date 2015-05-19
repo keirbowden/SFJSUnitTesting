@@ -1,0 +1,44 @@
+.THIS.top-buffer { 
+	margin-top:20px; 
+}
+.THIS.fullwidth {
+	margin-left:0;
+	margin-right:0;
+	padding-left:0;
+	padding-right:0;
+}
+.THIS.hidden-toggle {
+	display:none;
+}
+.THIS.navbar-default {
+	background-color: #fe5000;
+	color: #fff;
+}
+.THIS.nav.nav-center {
+	margin:auto;
+  	float:none;
+	color: #fff;
+}
+.THIS.nav-logo-small {
+	margin: auto; 
+	display:block; 
+	height:2.5em; 
+	width:2.647em;
+	margin-top: 0.6em;
+}
+.THIS img.nav-logo-large {
+	margin-left: 55%; 
+	display:block; 
+	height:2em; 
+	width:8.823em;
+	margin-top: 0.7em;
+}
+.THIS.sm-container {
+	margin-top: 0.8em;
+	float:left;
+}
+.THIS.sm-icon {
+	width:1.75em;
+	height:1.75em;
+	margin-left: 0.5em;
+}
