@@ -1,23 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>*</members>
+        <members>JobWrapper</members>
+        <members>JobsController</members>
         <name>ApexClass</name>
     </types>
     <types>
-        <members>*</members>
-        <name>ApexComponent</name>
-    </types>
-    <types>
-        <members>*</members>
+        <members>JobLinks</members>
+        <members>JobsHome</members>
+        <members>JobsTests</members>
         <name>ApexPage</name>
     </types>
     <types>
-        <members>*</members>
+        <members>JobInitEvent</members>
+        <members>JobList</members>
+        <members>JobListEvent</members>
+        <members>JobSearch</members>
+        <members>JobsHomeApp</members>
+        <members>JobsTest</members>
+        <members>RunTestsEvent</members>
+        <members>Validation</members>
+        <members>ValidationApp</members>
         <name>AuraDefinitionBundle</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Applicant__c</members>
+        <members>Job_Application__c</members>
+        <members>Job_Posting__c</members>
+        <members>Job_Skill__c</members>
+        <members>Skill__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>BBLogoLarge</members>
+        <members>BBLogoSmall</members>
+        <members>BGIcon</members>
+        <members>BGLogo</members>
+        <members>BGLogo200</members>
+        <members>Bootstrap_3_3_2</members>
+        <members>JQuery_2_1_3</members>
+        <members>JobsJS</members>
+        <members>QUnit_1_14</members>
+        <members>alertify</members>
+        <members>alertify_0_3_11</members>
+        <members>blanket_1_1_5</members>
+        <members>jqBlock</members>
+        <members>qunitCSS_1_18_0</members>
+        <members>qunitJS_1_18_0</members>
+        <members>sinon_1_14_1</members>
         <name>StaticResource</name>
     </types>
     <version>33.0</version>
