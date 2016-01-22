@@ -48,7 +48,7 @@
         		});
 			console.log('Term = ' + term);
 			console.log('Skills = ' + skills);
-			JobsController.SearchJobs(term, skills, function(result, event) {jobCtrl.remoteCB(result, event, jobCtrl.handleJobs); } );
+			JobsController.SearchJobs(term, skills, function(result, event) {jobCtrl.remoteCB(result, event, jobCtrl.handleJobs); }, {escape: false} );
 		},
 		
 		// renders the HTML to display the supplied job wrappers in bootstrap panels
@@ -85,7 +85,7 @@
 		// get the latest jobs from the server
 		getLatestJobs : function() {
 			jobCtrl.showProgress();
-			JobsController.GetRecentJobs(function(result, event) {jobCtrl.remoteCB(result, event, jobCtrl.handleJobs); } );
+			JobsController.GetRecentJobs(function(result, event) {jobCtrl.remoteCB(result, event, jobCtrl.handleJobs); }, {escape: false} );
 		},
 		
 		// callback function to handle the latest jobs returned from the server

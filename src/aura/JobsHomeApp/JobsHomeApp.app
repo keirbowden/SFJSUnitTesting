@@ -88,7 +88,7 @@
                 <a href="{! '#' + 'search'}" class="menu-trigger hidden-md hidden-lg">Search</a>
             </li>
             <li>
-                <a href="/apex/JobLinks" class="menu-trigger">Links</a>
+                <a href="/apex/JobLinks" target="_blank" class="menu-trigger">Links</a>
             </li>
           </ul>
         </div><!-- /.navbar-collapse -->

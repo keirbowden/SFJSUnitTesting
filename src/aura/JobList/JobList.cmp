@@ -9,7 +9,7 @@
     
 	<aura:handler event="c:JobListEvent" action="{!c.receiveJobs}"/>
 	<aura:handler event="c:RunTestsEvent" action="{!c.runTests}"/>
-    <aura:attribute name="jobWrappers" type="JobWrapper[]" />
+    <aura:attribute name="jobWrappers" type="JobWrapper" />
 
     		<aura:iteration items="{!v.jobWrappers}" var="wrap">
 			<div class="row-fluid">
@@ -19,7 +19,7 @@
 							<h3 class="panel-title">{!wrap.job.Name}</h3>
 						</div>
 						<div class="panel-body">
-							<div class="top-buffer table-responsive"><ui:outputRichText aura:id="outputRT" value="{!wrap.job.Description__c}"/></div>
+                            <div class="top-buffer table-responsive"><aura:unescapedHtml value="{!wrap.job.Description__c}"/></div>
 						</div>
 						<div class="panel-footer">
 							<aura:iteration items="{!wrap.skills}" var="skill">
